@@ -21,7 +21,7 @@ describe('Fluxo E2E', () => {
         // Captura uma evidência visual do resultado
         cy.screenshot()
     });
-    it.only('Criar um produto com sucesso', () => {
+    it('Criar um produto com sucesso', () => {
         cy.cadastrarProduto("Playstation", "3000", "Branca")
         cy.get('.toast').should('be.visible').and('contain.text', 'Produto adicionado com sucesso')
         cy.screenshot()
