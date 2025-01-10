@@ -1,0 +1,28 @@
+name: "Execução por deploy"
+
+
+on: 
+  workflow_dispatch:
+    
+
+jobs:  
+  e2e-testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: actions/checkout@v4
+     # Faz o checkout do repositório
+     - name: Instalando teste de acessibilidade
+       
+
+     # Instalando dependências de testes de acessibilidade
+     - name: Instalando testes de acessibilidade
+       run: npm install cypress-axe cypress-axe-core
+
+     # Instalando o relatório de testes
+     - name: Instalando o relatório de testes
+       run: npm install mochawesome cypress-mochawesome-reporter --save-dev
+
+     # Executando os testes E2E
+     - name: Executando Testes E2E
+       run: npx cypress run
