@@ -1,4 +1,4 @@
-name: "Execução por deploy"
+name: "Execução por integrado"
 
 
 on: 
