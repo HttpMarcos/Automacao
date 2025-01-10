@@ -24,4 +24,3 @@ jobs:
      # Executando os testes E2E
      - name: Executando Testes E2E
        run: npx cypress run
-T
