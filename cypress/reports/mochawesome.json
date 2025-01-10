@@ -1,0 +1,207 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 5,
+    "passes": 4,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-01-08T16:25:02.442Z",
+    "end": "2025-01-08T16:25:32.510Z",
+    "duration": 30068,
+    "testsRegistered": 5,
+    "passPercent": 80,
+    "pendingPercent": 0,
+    "other": 1,
+    "hasOther": true,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "893e7235-dec4-43aa-ba43-70ceec80f7af",
+      "title": "",
+      "fullFile": "cypress\\e2e\\testesE2E.cy.js",
+      "file": "cypress\\e2e\\testesE2E.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "39e3357f-d1ef-4337-aeff-acc7876400f2",
+          "title": "Fluxo E2E",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Criar um produto com sucesso",
+              "fullTitle": "Fluxo E2E Criar um produto com sucesso",
+              "timedOut": null,
+              "duration": 3653,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.cadastrarProduto(\"Playstation\", \"3000\", \"Branca\");\ncy.get('.toast').should('be.visible').and('contain.text', 'Produto adicionado com sucesso');",
+              "err": {},
+              "uuid": "886684ec-1ba9-4013-9e40-0f43cf7b505e",
+              "parentUUID": "39e3357f-d1ef-4337-aeff-acc7876400f2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Criar um produto com valor > R$7000,01",
+              "fullTitle": "Fluxo E2E Criar um produto com valor > R$7000,01",
+              "timedOut": null,
+              "duration": 3139,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.cadastrarProduto(\"Iphone 4\", \"7000.01\", \"Vermelho\");\ncy.get('.toast').should('be.visible').and('contain.text', 'O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00');",
+              "err": {},
+              "uuid": "f8ac6f8a-d78e-4a9b-b93f-36058340d203",
+              "parentUUID": "39e3357f-d1ef-4337-aeff-acc7876400f2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Editar um produto existente",
+              "fullTitle": "Fluxo E2E Editar um produto existente",
+              "timedOut": null,
+              "duration": 3267,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.editaProduto(\"Iphone 14\", \"50.08\", \"Azul\");\ncy.get('.toast').should('be.visible').and('contain.text', 'Produto alterado com sucesso');",
+              "err": {},
+              "uuid": "d9942d36-c9df-4133-ae39-a454f1c390ff",
+              "parentUUID": "39e3357f-d1ef-4337-aeff-acc7876400f2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Adicionar componente ao produto",
+              "fullTitle": "Fluxo E2E Adicionar componente ao produto",
+              "timedOut": null,
+              "duration": 200,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      \"\\\\testesE2E.cy.js\\\\Fluxo E2E -- Adicionar componente ao produto (failed).png\",\n      \"\\\\testesE2E.cy.js\\\\Fluxo E2E -- Adicionar componente ao produto -- after each hook (failed).png\"\n    ]\n  ]\n}",
+              "code": "cy.adicionarComponente(\"Head set\", \"1\");\ncy.get('.toast').should('be.visible').and('contain.text', 'Componente de produto adicionado com sucesso');",
+              "err": {
+                "message": "CypressError: `cy.readFile(\"./node_modules/axe-core/axe.min.js\")` timed out.\n\nhttps://on.cypress.io/readfile\n\nBecause this error occurred during a `after each` hook we are skipping the remaining tests in the current suite: `Fluxo E2E`",
+                "estack": "CypressError: `cy.readFile(\"./node_modules/axe-core/axe.min.js\")` timed out.\n\nhttps://on.cypress.io/readfile\n\nBecause this error occurred during a `after each` hook we are skipping the remaining tests in the current suite: `Fluxo E2E`\n    at cypressErr (http://165.227.93.41/__cypress/runner/cypress_runner.js:76065:18)\n    at Object.cypressErrByPath (http://165.227.93.41/__cypress/runner/cypress_runner.js:76070:10)\n    at $Command.readFile (http://165.227.93.41/__cypress/runner/cypress_runner.js:120375:88)\n    at cyFn (http://165.227.93.41/__cypress/runner/cypress_runner.js:138201:19)\nFrom Your Spec Code:\n    at __webpack_modules__../node_modules/cypress-axe/dist/index.js.exports.injectAxe (webpack://automacao2/./node_modules/cypress-axe/dist/index.js:20:0)",
+                "diff": null
+              },
+              "uuid": "ed617b19-f6ae-48d8-acbc-b15ebea7329c",
+              "parentUUID": "39e3357f-d1ef-4337-aeff-acc7876400f2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "886684ec-1ba9-4013-9e40-0f43cf7b505e",
+            "f8ac6f8a-d78e-4a9b-b93f-36058340d203",
+            "d9942d36-c9df-4133-ae39-a454f1c390ff"
+          ],
+          "failures": [
+            "ed617b19-f6ae-48d8-acbc-b15ebea7329c"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 10259,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "9e3904a4-d202-4134-81b1-574d135b5efa",
+          "title": "Login inválido",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Login com credenciais inválidas",
+              "fullTitle": "Login inválido Login com credenciais inválidas",
+              "timedOut": null,
+              "duration": 1220,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login(faker.person.firstName(), faker.internet.password());\n// Ajustar validação de URL para verificar somente o erro\ncy.url().should('include', '?error=Falha%20ao%20fazer%20o%20login');",
+              "err": {},
+              "uuid": "5fa701a8-e122-4848-b37b-973dea6e9716",
+              "parentUUID": "9e3904a4-d202-4134-81b1-574d135b5efa",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "5fa701a8-e122-4848-b37b-973dea6e9716"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1220,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "embeddedScreenshots": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

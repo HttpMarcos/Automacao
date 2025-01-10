@@ -1,0 +1,21 @@
+name: "Execução manual"
+
+#Gatilho de execução manual = workflow_dispatch
+on: 
+  workflow_dispatch: 
+
+jobs:  
+  e2e-testes:
+    runs_on: ["ubuntu-latest"]
+
+    steps:
+     - uses: actions/checkout@v4
+
+     - name: Instalando testes de acessibilidade
+        run: npm i cypress-axe cypress-axe-core
+
+      - name: Instalando o relatório de testes
+        run: npm i mochawesome  cypress-mochawesome-reporter --save-dev
+
+      - name: Testes E2E
+        run: npx cypress run
