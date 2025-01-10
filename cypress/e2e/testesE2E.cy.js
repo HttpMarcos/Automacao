@@ -40,7 +40,7 @@ describe('Fluxo E2E', () => {
         cy.screenshot() 
     })
 
-    it.only('Deve listar produtos e voltar para o menu inicial', () => {
+    it('Deve listar produtos e voltar para o menu inicial', () => {
         cy.listaProduto()
         cy.url().should('eq', 'http://165.227.93.41/lojinha-web/v2/produto')
         cy.screenshot()
