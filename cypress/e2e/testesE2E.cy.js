@@ -64,7 +64,7 @@ describe('Cadastrar produto com valor não permitido', () => {
     });
 
    
-    it('Criar um produto com valor > R$7000,01', () => {
+    it('Criar um produto com valor > R$7000,01', () => { 
         cy.cadastrarProduto("Iphone 12", "7.000,01", "Vermelho");
     
         // Esperar o Toast aparecer e verificar a mensagem de erro
