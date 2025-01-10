@@ -1,9 +1,9 @@
 Cypress.Commands.add("excluirComponente", () => {
     // Visita a página de edição do produto
-    cy.visit("http://165.227.93.41/lojinha-web/v2/produto/editar/989117");
+    cy.visit("http://165.227.93.41/lojinha-web/v2/produto/editar/987725");
 
     // Verifica se a URL está correta após o carregamento da página
-    cy.url().should("eq", "http://165.227.93.41/lojinha-web/v2/produto/editar/989117");
+    cy.url().should("eq", "http://165.227.93.41/lojinha-web/v2/produto/editar/987725");
 
     // Aguarda até que os ícones de lixeira estejam visíveis e seleciona o segundo ícone
     cy.get('.material-icons')  // Espera até que os ícones estejam visíveis

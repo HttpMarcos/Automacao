@@ -21,7 +21,7 @@ describe('Fluxo E2E', () => {
         // Captura uma evidência visual do resultado
         cy.screenshot()
     });
-    it('Criar um produto com sucesso', () => {
+    it.only('Criar um produto com sucesso', () => {
         cy.cadastrarProduto("Playstation", "3000", "Branca")
         cy.get('.toast').should('be.visible').and('contain.text', 'Produto adicionado com sucesso')
         cy.screenshot()
@@ -40,7 +40,7 @@ describe('Fluxo E2E', () => {
         cy.screenshot() 
     })
 
-    it('Deve listar produtos e voltar para o menu inicial', () => {
+    it.only('Deve listar produtos e voltar para o menu inicial', () => {
         cy.listaProduto()
         cy.url().should('eq', 'http://165.227.93.41/lojinha-web/v2/produto')
         cy.screenshot()

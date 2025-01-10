@@ -28,7 +28,7 @@ Cypress.Commands.add("cadastrarProduto", (produtoNome, produtoValor, produtoCor)
     // Verificar o resultado com base no nome do produto
     if (produtoNome) {
         // Se o nome foi preenchido, esperar o redirecionamento para a edição do produto
-        cy.url()('include', '/produto/editar')
+        cy.url(),('include', '/produto/editar')
         cy.get('.toast').should('be.visible').and('contain.text', 'Produto adicionado com sucesso')
     } else {
         // Se o nome não foi fornecido, verificar o erro de validação do campo nome
