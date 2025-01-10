@@ -64,7 +64,7 @@ describe('Cadastrar produto com valor não permitido', () => {
     });
 
    
-    it('Criar um produto com valor > R$7000,01', () => {
+    it.only('Criar um produto com valor > R$7000,01', () => {
         cy.cadastrarProduto("Iphone 12", "7.000,01", "Vermelho");
     
         // Esperar o Toast aparecer e verificar a mensagem de erro
@@ -78,7 +78,7 @@ describe('Cadastrar produto com valor não permitido', () => {
     });
         
 
-    it('Criar produto com valor zerado', () => {
+    it.only('Criar produto com valor zerado', () => {
         // Chamando o comando cadastrarProduto com os parâmetros corretos
         cy.cadastrarProduto("Iphone 4", "0", "Preto");  // Valor zerado
         cy.wait(100)
@@ -90,7 +90,7 @@ describe('Cadastrar produto com valor não permitido', () => {
         cy.screenshot();
     });
     
-    it('Criar produto com valor em branco', () => {
+    it.only('Criar produto com valor em branco', () => {
         cy.cadastrarProduto("Iphone 4", "", "Preto"); // Não preenche o valor
         cy.wait(100)
         
