@@ -1,6 +1,6 @@
 name: "Execução agendado"
 
-# Gatilho de execução agendado
+#Execução agendado
 on: 
   schedule: 
     - cron: "0 9 * * *"
