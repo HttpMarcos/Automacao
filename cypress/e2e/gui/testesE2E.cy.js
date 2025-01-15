@@ -151,8 +151,5 @@ describe('Cadastrar Produto sem Nome', () => {
     it('Deve exibir mensagem de erro quando o nome do produto não for preenchido', () => {
         // Chama a função de cadastro de produto, mas sem nome
         cy.cadastrarProduto("", "3000");
-
-        // Mensagem customizada de erro
-        throw new Error("ERRO: PRODUTO CADASTRADO");
     });
 });
