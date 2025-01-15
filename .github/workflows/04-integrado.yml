@@ -2,7 +2,10 @@ name: "Execução por integrado"
 
 
 on: 
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Execução por deploy"] #Seria o nome do job do deploy
+    types:
+     - completed
     
 
 jobs:  
