@@ -159,6 +159,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 }
             });
         });
+
         it('Adicionar um usuário que já existe', () => {
             const usuarioLoginExistente = "marcos2025"; // Substitua por um login que já existe
 
@@ -178,6 +179,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O usuário marcos2025 já existe.");
             });
         });
+        
         it('Adicionar um usuário sem informar dados', () => {
             const usuarioLoginExistente = ""; // Substitua por um login que já existe
 
@@ -196,6 +198,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(409);
             });
         });
+
         it('Adicionar um usuário sem senha', () => {
             const novoUsuario = {
                 usuarioNome: "Fulano de Tal",
@@ -213,6 +216,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("A senha é obrigatória");
             });
         });
+
         it('Adicionar um usuário com senha contendo espaços', () => {
             const novoUsuario = {
                 usuarioNome: "Fulano de Tal",
@@ -229,6 +233,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Adicionar um usuário com nome muito longo', () => {
             const nomeMuitoLongo = "a".repeat(256); // Nome com mais de 255 caracteres
         
@@ -300,6 +305,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(componenteId).to.be.greaterThan(0);
             });
         });
+
         it('Adicionar um produto com valor decimal de 0 a 4 - Arredonda para 0', () => {
             cy.api({
                 method: "POST",
@@ -323,7 +329,8 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(201); // Sucesso
                 expect(response.body.data.produtoValor).to.eq(100.004); // Verifica se o valor foi arredondado para 100.00
             });
-        });        
+        });     
+
         it('Adicionar um produto com valor decimal exatamente 5 - Arredonda para 1', () => {
             cy.api({
                 method: "POST",
@@ -348,6 +355,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.data.produtoValor).to.eq(100.005); // Verifica se o valor foi arredondado para 100.01
             });
         });
+
         it('Buscar produtos de um usuário sem fornecer o token', () => {
             cy.api({
                 method: "GET",
@@ -357,6 +365,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(401); // Unauthorized
             });
         });
+        
         it('Cadastrar um produto utilizando um número inteiro no campo de nome', () => {
             cy.api({
                 method: "POST",
@@ -381,6 +390,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Cadastrar um produto com mais de 10 cores', () => {
             cy.api({
                 method: "POST",
@@ -405,6 +415,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(201); 
             });
         });
+
         it('Cadastrar um produto com nome contendo apenas espaços', () => {
             cy.api({
                 method: "POST",
@@ -429,6 +440,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Cadastrar um produto com valor zero', () => {
             cy.api({
                 method: "POST",
@@ -454,6 +466,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
         });
+
         it('Adicionar um produto com valor muito grande', () => {
             cy.api({
                 method: "POST",
@@ -478,7 +491,8 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });        
+        });    
+
         it('Cadastrar um produto com valor contendo letras', () => {
             cy.api({
                 method: "POST",
@@ -503,6 +517,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Cadastrar um produto com nome contendo caracteres especiais', () => {
             cy.api({
                 method: "POST",
@@ -528,6 +543,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O nome do produto contém caracteres inválidos");
             });
         })
+
         it('Cadastrar um produto com valor contendo vírgula', () => {
             cy.api({
                 method: "POST",
@@ -552,6 +568,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(201); // Unprocessable Entity
             });
         });
+
         it('Alterar um produto sem fornecer o token', () => {
             cy.api({
                 method: "PUT",
@@ -624,6 +641,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
         });
+
         it('Cadastrar um produto com valor contendo zeros após o ponto decimal', () => {
             cy.api({
                 method: "POST",
@@ -649,6 +667,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
         });
+
         it('Cadastrar um produto com valor contendo aspas', () => {
             cy.api({
                 method: "POST",
@@ -674,6 +693,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve ser um número válido");
             });
         });
+
         it('Cadastrar um produto com nome contendo números quebrados', () => {
             cy.api({
                 method: "POST",
@@ -751,6 +771,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
         });
+
         it('Adicionar um produto com valor acima do limite permitido', () => {
             cy.api({
                 method: "POST",
@@ -776,6 +797,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
         });
+
         it('Adicionar um produto com mais de uma cor', () => {
             cy.api({
                 method: "POST",
@@ -1055,6 +1077,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body).to.have.property("message", "Componente de produto adicionado com sucesso");
             });
         });
+
         it('Adicionar um componente com quantidade muito alta', () => {
             cy.api({
                 method: "POST",
@@ -1071,6 +1094,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entit
             });
         });
+
         it('Adicionar um componente com mais de 100 caracteres', () => {
             cy.api({
                 method: "POST",
@@ -1088,6 +1112,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O nome do componente deve ter no máximo 100 caracteres");
             });
         });
+
         it('Adicionar um componente com quantidade utilizando string', () => {
             cy.api({
                 method: "POST",
@@ -1104,6 +1129,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Adicionar um componente a um produto com a quantidade zerada', () => {
             cy.api({
                 method: "POST",
@@ -1120,6 +1146,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422);
             });
         });
+
         it('Adicionar um componente sem informar a quantidade', () => {
             cy.api({
                 method: "POST",
@@ -1137,6 +1164,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("A quantidade mínima para o componente não deve ser inferior a 1")
             });
         });
+
         it('Adicionar um componente com quantidade negativa', () => {
             cy.api({
                 method: "POST",
@@ -1154,6 +1182,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("A quantidade mínima para o componente não deve ser inferior a 1")
             });
         });
+
         it('Adicionar um componente com nome contendo apenas números', () => {
             cy.api({
                 method: "POST",
@@ -1171,6 +1200,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("O nome do componente deve conter letras");
             });
         });
+
         it('Adicionar um componente com quantidade menor que o mínimo permitido (0.1)', () => {
             cy.api({
                 method: "POST",
@@ -1188,6 +1218,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.error).to.eq("A quantidade mínima para o componente não deve ser inferior a 1");
             });
         });
+
         it('Adicionar um componente com quantidade contendo letras', () => {
             cy.api({
                 method: "POST",
@@ -1204,6 +1235,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Adicionar um componente a um produto sem informar o nome', () => {
             cy.api({
                 method: "POST",
@@ -1220,6 +1252,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422);
             });
         });
+
         it('Adicionar um componente com nome contendo caracteres especiais', () => {
             cy.api({
                 method: "POST",
@@ -1236,6 +1269,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Adicionar um componente com nome muito curto', () => {
             cy.api({
                 method: "POST",
@@ -1252,6 +1286,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
         });
+
         it('Busca dados dos componentes de um produto', () => {
             cy.api({
                 method: "GET",
@@ -1265,6 +1300,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.data.length).to.be.greaterThan(0);
             });
         });
+
         it('Buscar componentes de um produto sem fornecer o token', () => {
             cy.api({
                 method: "GET",
@@ -1287,6 +1323,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(400);
             });
         });
+        
         it('Consultar um componente de produto informando um ID de produto inválido', () => {
             cy.api({
                 method: "GET",
