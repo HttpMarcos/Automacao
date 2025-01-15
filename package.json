@@ -17,6 +17,7 @@
   "dependencies": {
     "cypress-axe": "^1.5.0",
     "cypress-axe-core": "^2.0.0",
+    "cypress-plugin-api": "^2.11.2",
     "mochawesome": "^7.1.3"
   }
 }

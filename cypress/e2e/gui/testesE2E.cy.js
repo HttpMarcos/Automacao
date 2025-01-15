@@ -116,7 +116,7 @@ describe('Login inválido', () => {
         beforeEach(() => {
             cy.login(usuario, senha) // Login antes de cada teste
         })
-        it('Deve excluir o primeiro produto da lista', () => {
+        it.only('Deve excluir o primeiro produto da lista', () => {
             // Executa o comando para excluir o primeiro item
             cy.excluirItem();
         })

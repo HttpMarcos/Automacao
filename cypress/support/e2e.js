@@ -25,5 +25,6 @@ import './pages/excluirComponente/excluirComponente-commands'
 import 'cypress-axe'
 import './accessibility-commands'
 import 'cypress-mochawesome-reporter/register';
+import 'cypress-plugin-api'
 
 
