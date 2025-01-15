@@ -6,7 +6,6 @@ on:
     workflows: ["Execução por deploy"] #Seria o nome do job do deploy
     types:
      - completed
-    
 
 jobs:  
   e2e-testes:
