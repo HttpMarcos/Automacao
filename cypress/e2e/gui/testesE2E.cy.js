@@ -5,21 +5,14 @@ const senha = Cypress.env("password");
 
 describe('Fluxo E2E', () => {
     beforeEach(() => {
-        cy.login(usuario, senha); // Login antes de cada teste
+        cy.login(usuario, senha);
     });
 
     it('Deve realizar o login com sucesso', () => {
-        // Executa o comando de login com as variáveis 'usuario' e 'senha' passadas como argumento
         cy.login(usuario, senha);
-
-        // Verifica se a URL é a página inicial após o login
         cy.url().should('eq', 'http://165.227.93.41/lojinha-web/v2/produto');
-
-        // Verifica se o botão de logout está visível (indicando que o login foi bem-sucedido)
         cy.get('a[href="http://165.227.93.41/lojinha-web/v2/login/sair"]').should('be.visible');
 
-        // Captura uma evidência visual do resultado
-        cy.screenshot();
     });
 
     it('Criar um produto com sucesso', () => {
@@ -47,10 +40,9 @@ describe('Fluxo E2E', () => {
     });
 
     it('logout', () => {
-        // Certifica-se de que o usuário está logado antes de realizar o logout
+        
         cy.login(Cypress.env("username"), Cypress.env("password"));
 
-        // Executa o comando de logout
         cy.logout();
         // Verifica que foi redirecionado para a tela de login após o logout
         cy.url().should('eq', 'http://165.227.93.41/lojinha-web/v2/');
@@ -99,7 +91,7 @@ describe('Cadastrar produto com valor não permitido', () => {
         // Tirar uma captura de tela
         cy.screenshot();
     });
-});
+})
 
 describe('Login inválido', () => {
     it('Login com credenciais inválidas', () => {
@@ -109,7 +101,7 @@ describe('Login inválido', () => {
         cy.get('.toast').should('be.visible').and('contain.text', 'Falha ao fazer o login');
         cy.screenshot();
     });
-});
+})
 
 describe('Excluir Produto', () => {
     beforeEach(() => {
@@ -125,7 +117,7 @@ describe('Excluir Produto', () => {
         // Verificar a acessibilidade após cada teste
         cy.pageAccessibility(); // Verifica a acessibilidade de toda a página
     });
-});
+})
 
 describe('Excluir Componente de Produto', () => {
     beforeEach(() => {
@@ -136,7 +128,7 @@ describe('Excluir Componente de Produto', () => {
         // Executa o comando para excluir o componente
         cy.excluirComponente();
     });
-});
+})
 
 describe('Cadastrar Produto sem Nome', () => {
     beforeEach(() => {
@@ -152,4 +144,4 @@ describe('Cadastrar Produto sem Nome', () => {
         // Chama a função de cadastro de produto, mas sem nome
         cy.cadastrarProduto("", "3000");
     });
-});
+})

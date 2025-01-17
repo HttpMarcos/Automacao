@@ -1,9 +1,10 @@
+const { faker } = require("@faker-js/faker");
 let valorToken;
 let url = "http://165.227.93.41/lojinha/v2/";
 let produtoId;
-let componenteId;
-let produtoIdInexistente = 9999;
-let componenteIdInexistente = 9999;
+let componenteId
+let produtoIdInexistente = 9999
+let componenteIdInexistente = 9999
 
 describe('Testes E2E da API da Lojinha', () => {
     describe('Autenticação', () => {
@@ -21,8 +22,8 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body).to.have.property("message", "Sucesso ao realizar o login");
                 expect(response.body).to.have.property("error", "");
                 expect(valorToken).to.be.a("string").and.not.to.be.empty;
-            });
-        });
+            })
+        })
         it('Tentar usar token inválido - 401 Unauthorized', () => {
             const tokenInvalido = "token_inexistente_ou_invalido";
 
@@ -37,7 +38,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(401);
                 expect(response.body).to.be.empty;
             });
-        });
+        })
         it('Tentar fazer login com credenciais inválidas', () => {
             cy.api({
                 method: "POST",
@@ -51,7 +52,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 // Verifica se o status da resposta é 401 (Unauthorized)
                 expect(response.status).to.eq(401); // Ajustado para 401
             });
-        });
+        })
         it('Tentar fazer login sem informar o nome de usuário', () => {
             cy.api({
                 method: "POST",
@@ -64,7 +65,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Bad Request
             });
-        });
+        })
         it('Fazer login sem fornecer a senha', () => {
             cy.api({
                 method: "POST",
@@ -77,7 +78,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Unauthorized
             });
-        });
+        })
         it('Tentar fazer login com corpo vazio', () => {
             cy.api({
                 method: "POST",
@@ -87,7 +88,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Bad Request
             });
-        });
+        })
         it('Fazer login com um token expirado', () => {
             const tokenExpirado = "token_expirado_aqui";
         
@@ -101,7 +102,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Unauthorized
             });
-        });
+        })
         it('Tentar fazer login com método GET', () => {
             cy.api({
                 method: "GET",
@@ -113,6 +114,22 @@ describe('Testes E2E da API da Lojinha', () => {
                 failOnStatusCode: false
             }).then((response) => {
                 expect(response.status).to.eq(405); // Method Not Allowed
+            });
+        })
+        it('Tentar fazer login com credenciais aleatórias', () => {
+            const usuarioLogin = faker.internet.userName(); 
+            const usuarioSenha = faker.internet.password(); 
+        ''
+            cy.api({
+                method: "POST",
+                url: `${url}login`,
+                body: {
+                    usuarioLogin: usuarioLogin,
+                    usuarioSenha: usuarioSenha
+                },
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.eq(401); // Unauthorized
             });
         });
                 after('Limpar todos os dados do usuário', () => {
@@ -158,7 +175,7 @@ describe('Testes E2E da API da Lojinha', () => {
                     expect(response.body.data.usuarioId).to.be.greaterThan(0);
                 }
             });
-        });
+        })
 
         it('Adicionar um usuário que já existe', () => {
             const usuarioLoginExistente = "marcos2025"; // Substitua por um login que já existe
@@ -178,7 +195,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(409);
                 expect(response.body.error).to.eq("O usuário marcos2025 já existe.");
             });
-        });
+        })
         
         it('Adicionar um usuário sem informar dados', () => {
             const usuarioLoginExistente = ""; // Substitua por um login que já existe
@@ -197,7 +214,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(409);
             });
-        });
+        })
 
         it('Adicionar um usuário sem senha', () => {
             const novoUsuario = {
@@ -215,7 +232,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("A senha é obrigatória");
             });
-        });
+        })
 
         it('Adicionar um usuário com senha contendo espaços', () => {
             const novoUsuario = {
@@ -232,7 +249,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
-        });
+        })
 
         it('Adicionar um usuário com nome muito longo', () => {
             const nomeMuitoLongo = "a".repeat(256); // Nome com mais de 255 caracteres
@@ -267,7 +284,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 valorToken = response.body.data.token;
             });
-        });
+        })
         it('Adicionar um produto', () => {
             cy.api({
                 method: "POST",
@@ -304,7 +321,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(produtoId).to.be.greaterThan(0);
                 expect(componenteId).to.be.greaterThan(0);
             });
-        });
+        })
 
         it('Adicionar um produto com valor decimal de 0 a 4 - Arredonda para 0', () => {
             cy.api({
@@ -329,7 +346,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(201); // Sucesso
                 expect(response.body.data.produtoValor).to.eq(100.004); // Verifica se o valor foi arredondado para 100.00
             });
-        });     
+        })    
 
         it('Adicionar um produto com valor decimal exatamente 5 - Arredonda para 1', () => {
             cy.api({
@@ -354,7 +371,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(201); // Sucesso
                 expect(response.body.data.produtoValor).to.eq(100.005); // Verifica se o valor foi arredondado para 100.01
             });
-        });
+        })
 
         it('Buscar produtos de um usuário sem fornecer o token', () => {
             cy.api({
@@ -364,7 +381,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Unauthorized
             });
-        });
+        })
         
         it('Cadastrar um produto utilizando um número inteiro no campo de nome', () => {
             cy.api({
@@ -389,7 +406,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
-        });
+        })
 
         it('Cadastrar um produto com mais de 10 cores', () => {
             cy.api({
@@ -414,7 +431,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(201); 
             });
-        });
+        })
 
         it('Cadastrar um produto com nome contendo apenas espaços', () => {
             cy.api({
@@ -439,7 +456,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
-        });
+        })
 
         it('Cadastrar um produto com valor zero', () => {
             cy.api({
@@ -465,7 +482,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });
+        })
 
         it('Adicionar um produto com valor muito grande', () => {
             cy.api({
@@ -491,7 +508,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });    
+        })  
 
         it('Cadastrar um produto com valor contendo letras', () => {
             cy.api({
@@ -516,7 +533,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
-        });
+        })
 
         it('Cadastrar um produto com nome contendo caracteres especiais', () => {
             cy.api({
@@ -567,7 +584,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(201); // Unprocessable Entity
             });
-        });
+        })
 
         it('Alterar um produto sem fornecer o token', () => {
             cy.api({
@@ -589,7 +606,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(401); // Unauthorized
             });
-        });
+        })
 
         it('Adicionar um produto com mais de 100 caracteres', () => {
             cy.api({
@@ -614,7 +631,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
             });
-        });
+        })
 
         it('Adicionar um produto sem informar o valor', () => {
             cy.api({
@@ -640,7 +657,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });
+        })
 
         it('Cadastrar um produto com valor contendo zeros após o ponto decimal', () => {
             cy.api({
@@ -666,7 +683,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });
+        })
 
         it('Cadastrar um produto com valor contendo aspas', () => {
             cy.api({
@@ -692,7 +709,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve ser um número válido");
             });
-        });
+        })
 
         it('Cadastrar um produto com nome contendo números quebrados', () => {
             cy.api({
@@ -718,7 +735,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O nome do produto deve ser uma string válida");
             });
-        });
+        })
 
         it('Adicionar um produto sem nome', () => {
             cy.api({
@@ -744,7 +761,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O nome do produto é obrigatório");
             });
-        });
+        })
 
         it('Adicionar um produto com valor negativo', () => {
             cy.api({
@@ -770,7 +787,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });
+        })
 
         it('Adicionar um produto com valor acima do limite permitido', () => {
             cy.api({
@@ -796,7 +813,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00");
             });
-        });
+        })
 
         it('Adicionar um produto com mais de uma cor', () => {
             cy.api({
@@ -821,7 +838,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(201); // Created
             });
-        });
+        })
 
         it('Adicionar um produto sem cores', () => {
             cy.api({
@@ -847,7 +864,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(422); // Unprocessable Entity
                 expect(response.body.error).to.eq("Pelo menos uma cor deve ser informada");
             });
-        });
+        })
         it('Tentar adicionar um produto com uma cor inválida', () => {
             cy.api({
                 method: "POST",
@@ -858,7 +875,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 body: {
                     produtoNome: "Produto com cor inválida",
                     produtoValor: 5000,
-                    produtoCores: ["CorInvalida"], // Cor inválida
+                    produtoCores: ["CorInvalida"],
                     produtoUrlMock: "",
                     componentes: [
                         {
@@ -869,9 +886,9 @@ describe('Testes E2E da API da Lojinha', () => {
                 },
                 failOnStatusCode: false
             }).then((response) => {
-                expect(response.status).to.eq(422); // Unprocessable Entity
+                expect(response.status).to.eq(422); 
             });
-        });
+        })
 
         it('Buscar todos os produtos do usuário', () => {
             cy.api({
@@ -906,7 +923,7 @@ describe('Testes E2E da API da Lojinha', () => {
                     });
                 }
             });
-        });
+        })
 
         it('Buscar um dos produtos do usuário', () => {
             cy.api({
@@ -928,7 +945,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.data.componentes[0]).to.have.property("componenteQuantidade", 1).that.is.a("number");
                 expect(response.body.data.produtoId).to.eq(produtoId);
             });
-        });
+        })
 
         it('Buscar um produto inexistente do usuário', () => {
             cy.api({
@@ -942,7 +959,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(404);
                 expect(response.body).to.not.have.property("data");
             });
-        });
+        })
 
         it('Alterar as informações de um produto', () => {
             cy.api({
@@ -975,7 +992,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.body.data.produtoValor).to.eq(5500);
                 expect(response.body).to.have.property("message", "Produto alterado com sucesso");
             });
-        });
+        })
 
         it('Alterar as informações de um produto que não existe', () => {
             cy.api({
@@ -1000,7 +1017,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(404);
             });
-        });
+        })
 
         it('Remover o produto', () => {
             cy.api({
@@ -1013,7 +1030,7 @@ describe('Testes E2E da API da Lojinha', () => {
                 expect(response.status).to.eq(204);
                 expect(response.body).to.be.empty;
             });
-        });
+        })
 
         it('Remover um produto que não existe', () => {
             cy.api({
@@ -1026,7 +1043,7 @@ describe('Testes E2E da API da Lojinha', () => {
             }).then((response) => {
                 expect(response.status).to.eq(404);
             });
-        });
+        })
     })
 
     describe('Componentes', () => {
